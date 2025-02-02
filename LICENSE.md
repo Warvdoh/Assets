@@ -50,4 +50,4 @@ THE AUTHOR IS NOT LIABLE FOR ANY DAMAGES OR ISSUES ARISING FROM THE USE OF THIS 
 If you violate these terms, your rights under this license are automatically revoked.
 
 7. Contact for Commercial Licensing
-📧 lucti@protonmail.com
+ lucti@protonmail.com
