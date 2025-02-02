@@ -31,13 +31,18 @@ The following situations are considered exceptions and do not require a separate
 
 ✅ Educational Use
 This work may be used for academic, research, and teaching purposes, as long as no financial gain is involved.
+
 ❌ AI Training Prohibition: Using this work for AI model training or machine learning datasets is NOT permitted.
+
 ✅ Review & Criticism
 Small portions may be used for commentary, critique, or discussion, provided proper attribution is given.
+
 ✅ Non-Profit & Open-Source Collaboration
 Non-commercial open-source projects are allowed, provided that:
+
 The project does not monetize the work directly or indirectly.
 Monetization in this case includes, but is not limited to:
+
 Receiving donations explicitly for the tool incorporating this work.
 Hosting the tool on the same website/page as donation links.
 Gating access to features or content based on financial contributions.
