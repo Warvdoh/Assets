@@ -1,0 +1,189 @@
+<svg
+  xmlns="http://www.w3.org/2000/svg"
+  viewBox="0 0 800 600"
+  width="auto"
+  height="100vh"
+  preserveAspectRatio="xMidYMid slice"
+  overflow="hidden"
+  style="background: black;">
+  <defs>
+    <!-- Gradients for background and ground -->
+    <linearGradient id="skyGradient" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" style="stop-color:#1a1a1a;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#2d2d2d;stop-opacity:1" />
+    </linearGradient>
+
+    <linearGradient id="groundGradient" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" style="stop-color:#2a2a2a;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#1a1a1a;stop-opacity:1" />
+    </linearGradient>
+
+    <!-- Gradient for Fog opacity -->
+    <linearGradient id="fogOpacityGradient" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" style="stop-color:#2d2d2d;stop-opacity:0.4" />
+      <stop offset="100%" style="stop-color:#2d2d2d;stop-opacity:0.8" />
+    </linearGradient>
+
+    <!-- Tree sets with natural spacing -->
+    <g id="treeSetBack">
+      <path d="M0 400 L30 200 L60 400 Z" fill="#1a1a1a">
+        <animateTransform attributeName="transform"
+                          type="rotate"
+                          values="-1 30 400; 1 30 400; -1 30 400"
+                          dur="6s"
+                          repeatCount="indefinite"/>
+      </path>
+      <path d="M70 390 L100 180 L130 390 Z" fill="#1a1a1a">
+        <animateTransform attributeName="transform"
+                          type="rotate"
+                          values="-1 100 390; 1 100 390; -1 100 390"
+                          dur="6.2s"
+                          repeatCount="indefinite"/>
+      </path>
+    </g>
+
+    <g id="treeSetMid">
+      <path d="M20 450 L50 220 L80 450 Z" fill="#2d2d2d">
+        <animateTransform attributeName="transform"
+                          type="rotate"
+                          values="-1.5 50 450; 1.5 50 450; -1.5 50 450"
+                          dur="5s"
+                          repeatCount="indefinite"/>
+      </path>
+      <path d="M90 440 L120 200 L150 440 Z" fill="#2d2d2d">
+        <animateTransform attributeName="transform"
+                          type="rotate"
+                          values="-1.5 120 440; 1.5 120 440; -1.5 120 440"
+                          dur="4.8s"
+                          repeatCount="indefinite"/>
+      </path>
+    </g>
+
+    <g id="treeSetFront">
+      <path d="M10 500 L40 250 L70 500 Z" fill="#404040">
+        <animateTransform attributeName="transform"
+                          type="rotate"
+                          values="-2 40 500; 2 40 500; -2 40 500"
+                          dur="4.1s"
+                          repeatCount="indefinite"/>
+      </path>
+      <path d="M85 490 L115 240 L145 490 Z" fill="#404040">
+        <animateTransform attributeName="transform"
+                          type="rotate"
+                          values="-2 115 490; 2 115 490; -2 115 490"
+                          dur="4s"
+                          repeatCount="indefinite"/>
+      </path>
+    </g>
+  </defs>
+
+  <!-- Background Rect covering the entire viewBox -->
+  <rect width="100%" height="100%" fill="url(#skyGradient)" />
+
+  <!-- Mountains -->
+  <path d="M-50 380 L150 180 L300 350 L450 200 L600 320 L750 150 L900 380 Z" fill="#151515" />
+  <path d="M-100 380 L100 220 L250 340 L400 160 L550 360 L700 200 L850 380 Z" fill="#1d1d1d" />
+
+  <!-- Blood Moon with glow -->
+  <circle cx="600" cy="120" r="60" fill="#8B0000">
+    <animate attributeName="opacity"
+             values="0.8;1;0.8"
+             dur="5s"
+             repeatCount="indefinite" />
+  </circle>
+  <circle cx="600" cy="120" r="70" fill="#8B0000" opacity="0.3">
+    <animate attributeName="r"
+             values="70;75;70"
+             dur="5s"
+             repeatCount="indefinite" />
+  </circle>
+
+  <!-- Back Tree Layer -->
+  <g id="backTreesLayer">
+    <use href="#treeSetBack" x="0" />
+    <use href="#treeSetBack" x="70" y="-5" />
+    <use href="#treeSetBack" x="150" y="-15" />
+    <use href="#treeSetBack" x="230" y="-20" />
+    <use href="#treeSetBack" x="310" y="-25" />
+    <use href="#treeSetBack" x="400" y="-30" />
+    <use href="#treeSetBack" x="480" y="-35" />
+    <use href="#treeSetBack" x="560" y="-40" />
+    <use href="#treeSetBack" x="640" y="-45" />
+  </g>
+
+  <!-- Rolling Hills -->
+  <path d="M-100 460 Q 100 420 300 460 T 600 440 T 900 460" fill="#232323" />
+  <path d="M-100 480 Q 200 450 400 470 T 700 450 T 900 470" fill="#1f1f1f" />
+
+  <!-- Middle Tree Layer -->
+  <g id="middleTreesLayer">
+    <use href="#treeSetMid" x="40" />
+    <use href="#treeSetMid" x="120" y="10" />
+    <use href="#treeSetMid" x="220" y="-10" />
+    <use href="#treeSetMid" x="320" y="-20" />
+    <use href="#treeSetMid" x="440" y="-30" />
+    <use href="#treeSetMid" x="560" y="-40" />
+    <use href="#treeSetMid" x="680" y="-50" />
+  </g>
+
+  <!-- Front Tree Layer -->
+  <g id="frontTreesLayer" style="pointer-events:none">
+    <use href="#treeSetFront" x="60" />
+    <use href="#treeSetFront" x="180" y="8" />
+    <use href="#treeSetFront" x="320" y="-5" />
+    <use href="#treeSetFront" x="500" y="10" />
+    <use href="#treeSetFront" x="650" y="-10" />
+    <use href="#treeSetFront" x="750" y="-20" />
+  </g>
+
+  <!-- Ground -->
+  <path d="M-100 480 L900 480 L900 600 L-100 600 Z" fill="url(#groundGradient)" />
+
+  <!-- Foreground Large Trees -->
+  <g id="largeForegroundTrees">
+    <path d="M30 600 L80 250 L130 600 Z" fill="#4a4a4a">
+      <animateTransform attributeName="transform"
+                        type="rotate"
+                        values="-1.5 80 600; 1.5 80 600; -1.5 80 600"
+                        dur="7s"
+                        repeatCount="indefinite"/>
+    </path>
+    <path d="M120 600 L170 200 L220 600 Z" fill="#525252">
+      <animateTransform attributeName="transform"
+                        type="rotate"
+                        values="-1.5 170 600; 1.5 170 600; -1.5 170 600"
+                        dur="7.5s"
+                        repeatCount="indefinite"/>
+    </path>
+    <path d="M200 600 L250 300 L300 600 Z" fill="#474747">
+      <animateTransform attributeName="transform"
+                        type="rotate"
+                        values="-1.5 250 600; 1.5 250 600; -1.5 250 600"
+                        dur="6.8s"
+                        repeatCount="indefinite"/>
+    </path>
+  </g>
+
+  <!-- Additional Dense Left Side Trees -->
+  <g id="extraLeftTrees">
+    <path d="M-20 500 L10 280 L40 500 Z" fill="#404040">
+      <animateTransform attributeName="transform"
+                        type="rotate"
+                        values="-1.8 10 500; 1.8 10 500; -1.8 10 500"
+                        dur="4.3s"
+                        repeatCount="indefinite"/>
+    </path>
+    <path d="M15 480 L45 260 L75 480 Z" fill="#404040">
+      <animateTransform attributeName="transform"
+                        type="rotate"
+                        values="-1.8 45 480; 1.8 45 480; -1.8 45 480"
+                        dur="4.5s"
+                        repeatCount="indefinite"/>
+    </path>
+  </g>
+
+  <!-- Fog Effect -->
+  <rect width="100%" height="100" y="450" fill="url(#fogOpacityGradient)" />
+</svg>
+<!-- © 2025 Warvdoh Mróz. Licensed under Warvdoh's Personal Use License (WPUL). Contact: lucti@protonmail.com -->
+<!-- More assets and LICENSE.md at: https://github.com/Warvdoh/Assets -->
