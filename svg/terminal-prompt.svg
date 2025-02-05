@@ -11,7 +11,7 @@
       }
       
       .cursor {
-        animation: blink 3s cubic-bezier(0.4, 0, 0.1, 1) infinite;
+        animation: blink 3s cubic-bezier(0.4, 0, 0.2, 1) infinite;
         mix-blend-mode: screen;
       }
       
@@ -54,5 +54,5 @@
   <text x="2" y="26" class="prompt-text">$</text>
   
   <!-- Blinking cursor -->
-  <rect x="22" y="2" width="20" height="28" class="prompt-text cursor"/>
+  <rect x="22" y="1" width="20" height="28" class="prompt-text cursor"/>
 </svg>
