@@ -1,0 +1,58 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 45 32">
+  <defs>
+    <style>
+      @import url('https://fonts.googleapis.com/css2?family=VT323&amp;display=swap');
+      
+      .prompt-text {
+        font-family: 'VT323', monospace;
+        font-size: 32px;
+        fill: #FF4500;
+        filter: url(#glow);
+      }
+      
+      .cursor {
+        animation: blink 3s cubic-bezier(0.4, 0, 0.2, 1) infinite;
+        mix-blend-mode: screen;
+      }
+      
+      .burn-in {
+        opacity: 0.15;
+        filter: url(#burn);
+      }
+      
+      @keyframes blink {
+        0%, 92% { opacity: 1; }
+        96% { opacity: 0; }
+        100% { opacity: 1; }
+      }
+    </style>
+    
+    <!-- Glow effect -->
+    <filter id="glow" x="-20%" y="-20%" width="140%" height="140%">
+      <feGaussianBlur stdDeviation="1" result="glow"/>
+      <feMerge>
+        <feMergeNode in="glow"/>
+        <feMergeNode in="SourceGraphic"/>
+      </feMerge>
+    </filter>
+    
+    <!-- Burn-in effect -->
+    <filter id="burn" x="-10%" y="-10%" width="120%" height="120%">
+      <feGaussianBlur stdDeviation="0.3"/>
+      <feColorMatrix type="matrix"
+        values="1.5 0 0 0 0
+                0 1.2 0 0 0
+                0 0 1 0 0
+                0 0 0 1 0"/>
+    </filter>
+  </defs>
+  
+  <!-- Burn-in effect layer -->
+  <text x="2" y="26" class="prompt-text burn-in">$</text>
+  
+  <!-- Main prompt text -->
+  <text x="2" y="26" class="prompt-text">$</text>
+  
+  <!-- Blinking cursor -->
+  <rect x="22" y="2" width="20" height="28" class="prompt-text cursor"/>
+</svg>
