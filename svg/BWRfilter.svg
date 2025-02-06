@@ -1,17 +1,20 @@
-<svg width="0" height="0">
+<svg xmlns="http://www.w3.org/2000/svg" width="0" height="0">
   <defs>
-    <filter id="red-grayscale">
-      <!-- Convert to grayscale while preserving the red channel -->
-      <feColorMatrix type="matrix" values="0.2126 0.7152 0.0722 0 0 
-                                          0.2126 0.7152 0.0722 0 0
-                                          0.2126 0.7152 0.0722 0 0
-                                          0 0 0 1 0"/>
-      <!-- Preserve red hues (this is the key to keeping the red channel intact) -->
-      <feColorMatrix type="matrix" values="1 0 0 0 0
-                                          0 0 0 0 0
-                                          0 0 0 0 0
-                                          0 0 0 1 0"/>
-      <!-- This helps enhance the red component -->
+    <filter id="red-grayscale-alt">
+      <!-- Create a grayscale version -->
+      <feColorMatrix in="SourceGraphic" type="matrix"
+          values="0.2126 0.7152 0.0722 0 0 
+                  0.2126 0.7152 0.0722 0 0 
+                  0.2126 0.7152 0.0722 0 0 
+                  0      0      0      1 0" result="gray"/>
+      <!-- Isolate the red channel from the original -->
+      <feColorMatrix in="SourceGraphic" type="matrix"
+          values="1 0 0 0 0 
+                  0 0 0 0 0 
+                  0 0 0 0 0 
+                  0 0 0 1 0" result="redOnly"/>
+      <!-- Blend red with grayscale: use "lighten" so that red values are preserved when brighter -->
+      <feBlend in="redOnly" in2="gray" mode="lighten"/>
     </filter>
   </defs>
 </svg>
