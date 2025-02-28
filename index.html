@@ -187,7 +187,18 @@
 
   // Fetch repository content and create the tree view
   fetch(apiUrl)
-    .then(response => response.json())
+    .then(response => {
+      if (!response.ok) {
+        if (response.status === 403) {
+          throw new Error("Rate limit exceeded (error code: 403)");
+        } else if (response.status === 0) {
+          throw new Error("No connection (error code: 0)");
+        } else {
+          throw new Error("Unidentified error (error code: " + response.status + ")");
+        }
+      }
+      return response.json();
+    })
     .then(data => {
       console.log('Directory data:', data); // Debugging line
       const treeContainer = document.getElementById("directory-tree");
@@ -197,10 +208,9 @@
     .catch(error => {
       console.error('Error fetching files:', error); // Handle errors during fetch
       const treeContainer = document.getElementById("directory-tree");
-      treeContainer.innerHTML = "Failed to load directory tree.";  // Error message if fetching fails
+      treeContainer.innerHTML = `Failed to load directory tree. Error Code: ${error.message}`;  // Display error with code
     });
 </script>
-
 
   </body>
 </html>
