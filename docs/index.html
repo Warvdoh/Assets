@@ -8,6 +8,12 @@
     <meta name="description" content="Resources like media, snippets, graphics etc." />
     
     <!-- Embedded CSS -->
+    <!-- Preconnect to Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+    <!-- Load VT323 Font -->
+    <link href="https://fonts.googleapis.com/css2?family=VT323&display=swap" rel="stylesheet">
     <style>
     /* Global styles */
       ul {
@@ -25,6 +31,8 @@
       #directory-tree {
           scrollbar-width: thin; /* Firefox */
           scrollbar-color: rgb(255, 100, 60) black; /* Scrollbar color */
+          overflow-y: auto; /* Allow scrolling */
+          max-height: 80vh; /* Limit the height */
       }
       
       /* Webkit-based browsers (Chrome, Edge, Safari) */
@@ -82,7 +90,6 @@
           border: 2px solid rgb(200, 50, 50); /* Same red glow */
           box-shadow: 0 0 10px rgba(255, 100, 60, 0.7); /* Outer glow effect */
           box-sizing: border-box;
-          overflow-y: auto; /* Allow scroll if the content is large */
       }
       
       /* Links */
@@ -122,6 +129,7 @@
       /* Loading indicator */
       #directory-tree.loading {
           color: rgb(255, 100, 60);
+          font-style: italic;
       }
     </style>
   </head>
@@ -181,6 +189,7 @@
           console.log('Directory data:', data); // Debugging line
           const treeContainer = document.getElementById("directory-tree");
           treeContainer.classList.remove("loading"); // Remove the loading class
+          treeContainer.innerHTML = '';  // Clear the "Loading..." text
           buildTree(data, treeContainer);
         })
         .catch(error => {
