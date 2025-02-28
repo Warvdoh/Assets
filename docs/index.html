@@ -8,12 +8,6 @@
     <meta name="description" content="Resources like media, snippets, graphics etc." />
     
     <!-- Embedded CSS -->
-    <!-- Preconnect to Google Fonts -->
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-
-    <!-- Load VT323 Font -->
-    <link href="https://fonts.googleapis.com/css2?family=VT323&display=swap" rel="stylesheet">
     <style>
     /* Global styles */
       ul {
@@ -115,6 +109,20 @@
           border-color: rgb(255, 120, 80);
           box-shadow: 0 0 25px rgba(255, 100, 60, 0.9);
       }
+
+      /* HR spacer style (for IBM orange color under the description) */
+      hr {
+          border: none;
+          height: 2px;
+          background-color: rgb(255, 100, 60); /* IBM orange */
+          margin-top: 20px;
+          margin-bottom: 20px;
+      }
+
+      /* Loading indicator */
+      #directory-tree.loading {
+          color: rgb(255, 100, 60);
+      }
     </style>
   </head>
   <body>
@@ -124,10 +132,10 @@
 
       <p>This is a collection of various resources created and shared for public, personal, non-commercial use, or a commercial one under special circumstances and ownership. The assets are generally categorized by file format, with a few exceptions like background images.</p>
 
-      <hr />
+      <hr /> <!-- Spacer in IBM orange -->
 
       <h2 id="file-tree">Directory Tree</h2>
-      <div id="directory-tree">Loading...</div> <!-- Container for the directory tree -->
+      <div id="directory-tree" class="loading">Loading...</div> <!-- Container for the directory tree -->
 
       <h2 id="contact">Contact</h2>
       <p>For any questions, clarifications, or commercial use inquiries, feel free to contact me at:</p>
@@ -172,6 +180,7 @@
         .then(data => {
           console.log('Directory data:', data); // Debugging line
           const treeContainer = document.getElementById("directory-tree");
+          treeContainer.classList.remove("loading"); // Remove the loading class
           buildTree(data, treeContainer);
         })
         .catch(error => {
