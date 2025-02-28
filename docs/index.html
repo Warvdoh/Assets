@@ -30,14 +30,15 @@
       /* Custom Scrollbar for IBM Terminal Aesthetic */
       #directory-tree {
           scrollbar-width: thin !important; /* Firefox */
-          scrollbar-color: rgb(255, 100, 60) black !important; /* Scrollbar color */
-          overflow-y: auto; /* Allow scrolling */
-          max-height: 80vh; /* Limit the height to trigger scrollbar if content overflows */
+          scrollbar-color: rgb(255, 100, 60) black !important; /* Firefox */
+          overflow-y: auto; /* Ensure scrolling is enabled */
+          max-height: 80vh; /* To trigger overflow */
       }
       
       /* Webkit-based browsers (Chrome, Edge, Safari) */
       #directory-tree::-webkit-scrollbar {
           width: 8px !important;
+          height: 8px !important;
       }
       
       #directory-tree::-webkit-scrollbar-track {
@@ -46,14 +47,14 @@
       
       #directory-tree::-webkit-scrollbar-thumb {
           background: rgb(255, 100, 60) !important;
-          border-radius: 2px;
+          border-radius: 2px !important;
           box-shadow: 0 0 5px rgba(255, 100, 60, 0.9) !important;
       }
       
       #directory-tree::-webkit-scrollbar-thumb:hover {
           background: rgb(255, 80, 50) !important;
       }
-      
+
       /* Body Setup */
       body {
           background: black;
