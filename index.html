@@ -157,7 +157,7 @@
       </div>
     </div>
 
-    <script>
+<script>
   const apiUrl = "https://api.github.com/repos/Warvdoh/Assets/contents/";
 
   // Recursive function to build the directory tree
@@ -168,11 +168,11 @@
       const li = document.createElement("li"); // Create a <li> for each file or directory
 
       if (item.type === "file") {
-        // For files, we need to generate a proper URL and link
+        // For files, create a proper URL and a clickable link
         const fileUrl = `https://warvdoh.github.io/Assets/${item.path}`;  // Using GitHub Pages URL
         li.innerHTML = `<a href="${fileUrl}" target="_blank">${item.name}</a>`; // Link to the file
       } else if (item.type === "dir") {
-        // For directories, add a subfolder name and call the function recursively
+        // For directories, just display the directory name
         li.innerHTML = `<strong>${item.name}</strong>`;
         
         fetch(item.url)  // Fetch the contents of the directory recursively
@@ -191,14 +191,14 @@
   fetch(apiUrl)
     .then(response => response.json())
     .then(data => {
-      console.log('Directory data:', data);  // Debugging line to check data structure
+      console.log('Directory data:', data);  // Debugging line to check the fetched data structure
       const treeContainer = document.getElementById("directory-tree");
       treeContainer.innerHTML = '';  // Clear the "Loading..." message
       treeContainer.classList.remove("loading"); // Remove the loading class
       buildTree(data, treeContainer);  // Start building the tree
     })
     .catch(error => {
-      console.error('Error fetching files:', error);  // Debugging line to handle fetch errors
+      console.error('Error fetching files:', error);  // Handle errors during the fetch
       const treeContainer = document.getElementById("directory-tree");
       treeContainer.innerHTML = "Failed to load directory tree.";  // If fetch fails
     });
