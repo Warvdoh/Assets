@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html lang="en-US">
+  <head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Warvdoh’s Assets Repository | Assets</title>
+    <meta name="description" content="Resources like media, snippets, graphics etc." />
+    
+    <!-- Embedded CSS with custom scrollbar styling -->
+    <!-- Preconnect to Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+    <!-- Load VT323 Font -->
+    <link href="https://fonts.googleapis.com/css2?family=VT323&display=swap" rel="stylesheet">
+    <style>
+      /* Global styles */
+      ul {
+          list-style: none; /* Remove default bullets */
+          padding-left: 0; /* Remove left padding */
+      }
+      
+      ul li::before {
+          content: "+ "; /* Add + sign before each item */
+          color: rgb(255, 100, 60); /* Same color as terminal text */
+          font-weight: bold;
+      }
+      
+      /* Custom Scrollbar for IBM Terminal Aesthetic */
+      #directory-tree {
+          scrollbar-width: thin !important; /* Firefox */
+          scrollbar-color: rgb(255, 100, 60) black !important; /* Firefox */
+          overflow-y: auto; /* Ensure scrolling is enabled */
+          max-height: 80vh; /* To trigger overflow */
+      }
+      
+      /* Webkit-based browsers (Chrome, Edge, Safari) */
+      #directory-tree::-webkit-scrollbar {
+          width: 8px !important;
+          height: 8px !important;
+      }
+      
+      #directory-tree::-webkit-scrollbar-track {
+          background: black !important;
+      }
+      
+      #directory-tree::-webkit-scrollbar-thumb {
+          background: rgb(255, 100, 60) !important;
+          border-radius: 2px !important;
+          box-shadow: 0 0 5px rgba(255, 100, 60, 0.9) !important;
+      }
+      
+      #directory-tree::-webkit-scrollbar-thumb:hover {
+          background: rgb(255, 80, 50) !important;
+      }
+
+      /* Body Setup */
+      body {
+          background: black;
+          color: rgb(255, 100, 60); /* Deep red-orange */
+          font-family: 'VT323', monospace; /* Apply VT323 font */
+          margin: 0;
+          padding: 0;
+          height: auto;
+          display: flex;
+          justify-content: center;
+          align-items: flex-start; /* Top alignment */
+      }
+      
+      /* Content Area */
+      .container-lg {
+          padding: 20px;
+          max-width: 1000px; /* Adjust this based on the design */
+          height: 100%;
+      }
+      
+      /* Heading Styles */
+      h1, h2 {
+          color: rgb(255, 100, 60);
+      }
+      
+      /* File Tree Container */
+      #directory-tree {
+          margin-top: 20px;
+          padding: 15px;
+          font-size: 1.5vw; /* Responsive font size */
+          font-family: 'VT323', monospace;
+          color: rgb(255, 100, 60);
+          background-color: rgb(10, 5, 5);
+          border: 2px solid rgb(200, 50, 50); /* Same red glow */
+          box-shadow: 0 0 10px rgba(255, 100, 60, 0.7); /* Outer glow effect */
+          box-sizing: border-box;
+      }
+      
+      /* Links */
+      a {
+          color: rgb(255, 100, 60); /* Matching terminal text color */
+          text-decoration: none;
+      }
+      
+      a:hover {
+          text-decoration: underline;
+          color: rgb(255, 120, 80); /* Slightly lighter color for hover effect */
+      }
+      
+      li {
+          margin: 5px 0; /* Spacing between items */
+      }
+      
+      li > ul {
+          margin-left: 20px; /* Indent subdirectories */
+      }
+      
+      /* Glowing Effect on Focus */
+      #directory-tree:focus-within {
+          border-color: rgb(255, 120, 80);
+          box-shadow: 0 0 25px rgba(255, 100, 60, 0.9);
+      }
+
+      /* HR spacer style (for IBM orange color under the description) */
+      hr {
+          border: none;
+          height: 2px;
+          background-color: rgb(255, 100, 60); /* IBM orange */
+          margin-top: 20px;
+          margin-bottom: 20px;
+      }
+
+      /* Loading indicator */
+      #directory-tree.loading {
+          color: rgb(255, 100, 60);
+          font-style: italic;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container-lg px-3 my-5 markdown-body">
+      <h1><a href="https://warvdoh.github.io/Assets/">Assets</a></h1>
+      <h1 id="warvdohs-assets-repository">Warvdoh’s Assets Repository</h1>
+
+      <p>This is a collection of various resources created and shared for public, personal, non-commercial use, or a commercial one under special circumstances and ownership. The assets are generally categorized by file format, with a few exceptions like background images.</p>
+
+      <hr /> <!-- Spacer in IBM orange -->
+
+      <h2 id="file-tree">Directory Tree</h2>
+      <div id="directory-tree" class="loading">Loading...</div> <!-- Container for the directory tree -->
+
+      <h2 id="contact">Contact</h2>
+      <p>For any questions, clarifications, or commercial use inquiries, feel free to contact me at:</p>
+      <ul>
+        <li><strong>Email</strong>: <a href="mailto:lucti@protonmail.com">lucti@protonmail.com</a></li>
+      </ul>
+
+      <div class="footer border-top border-gray-light mt-5 pt-3 text-right text-gray">
+        placeholder
+      </div>
+    </div>
+
+    <script>
+      const apiUrl = "https://api.github.com/repos/Warvdoh/Assets/contents/";
+
+      // Recursive function to build the directory tree
+      function buildTree(files, parentElement) {
+        const ul = document.createElement("ul");
+
+        files.forEach(item => {
+          const li = document.createElement("li");
+
+          if (item.type === "file") {
+            li.innerHTML = `<a href="${item.download_url}" target="_blank">${item.name}</a>`;
+          } else if (item.type === "dir") {
+            li.innerHTML = `<strong>${item.name}</strong>`;
+            fetch(item.url)  // Fetch the contents of the directory recursively
+              .then(response => response.json())
+              .then(data => buildTree(data, li))
+              .catch(error => console.error("Error loading directory:", error));
+          }
+
+          ul.appendChild(li);
+        });
+
+        parentElement.appendChild(ul);
+      }
+
+      // Fetch repository content and create tree view
+      fetch(apiUrl)
+        .then(response => response.json())
+        .then(data => {
+          console.log('Directory data:', data); // Debugging line
+          const treeContainer = document.getElementById("directory-tree");
+          treeContainer.innerHTML = '';  // Clear "Loading..." text
+          treeContainer.classList.remove("loading"); // Remove the loading class
+          buildTree(data, treeContainer);
+        })
+        .catch(error => {
+          console.error('Error fetching files:', error); // Debugging line
+          const treeContainer = document.getElementById("directory-tree");
+          treeContainer.innerHTML = "Failed to load directory tree.";
+        });
+    </script>
+
+  </body>
+</html>
