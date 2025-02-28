@@ -4,7 +4,6 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-
     <title>Warvdoh’s Assets Repository | Assets</title>
     <meta name="description" content="Resources like media, snippets, graphics etc." />
     <link rel="stylesheet" href="/Assets/assets/css/style.css?v=b9f8806ac3ea67a893d2348523d84111a89cfa56">
@@ -18,17 +17,8 @@
 
       <hr />
 
-      <h2 id="whats-included">What’s Included</h2>
-      <p>This repository contains the following types of assets:</p>
-      <ul>
-        <li><strong>SVG Animations</strong>: Interactive and static vector graphics with accompanying scripts for animations.</li>
-        <li><strong>Code Snippets</strong>: Small, reusable pieces of code for various purposes (e.g., JavaScript, CSS, HTML).</li>
-        <li><strong>Images and Icons</strong>: PNG, JPEG, and other image file types, often used for web or app design.</li>
-        <li><strong>Background-Images</strong>: Special category of images meant to be used as backgrounds (larger resolutions or unique designs).</li>
-      </ul>
-
       <h2 id="file-tree">Directory Tree</h2>
-      <div id="directory-tree"></div> <!-- Container for the directory tree -->
+      <div id="directory-tree">Loading...</div> <!-- Container for the directory tree -->
 
       <h2 id="contact">Contact</h2>
       <p>For any questions, clarifications, or commercial use inquiries, feel free to contact me at:</p>
@@ -66,10 +56,16 @@
       fetch(apiUrl)
         .then(response => response.json())
         .then(data => {
+          console.log('Directory data:', data); // Debugging line
           const treeContainer = document.getElementById("directory-tree");
           buildTree(data, treeContainer);
         })
-        .catch(error => console.error('Error fetching files:', error));
+        .catch(error => {
+          console.error('Error fetching files:', error); // Debugging line
+          const treeContainer = document.getElementById("directory-tree");
+          treeContainer.innerHTML = "Failed to load directory tree.";
+        });
     </script>
   </body>
 </html>
+
