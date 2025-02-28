@@ -7,7 +7,7 @@
     <title>Warvdoh’s Assets Repository | Assets</title>
     <meta name="description" content="Resources like media, snippets, graphics etc." />
     
-    <!-- Embedded CSS -->
+    <!-- Embedded CSS with custom scrollbar styling -->
     <!-- Preconnect to Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -15,7 +15,7 @@
     <!-- Load VT323 Font -->
     <link href="https://fonts.googleapis.com/css2?family=VT323&display=swap" rel="stylesheet">
     <style>
-    /* Global styles */
+      /* Global styles */
       ul {
           list-style: none; /* Remove default bullets */
           padding-left: 0; /* Remove left padding */
@@ -29,29 +29,29 @@
       
       /* Custom Scrollbar for IBM Terminal Aesthetic */
       #directory-tree {
-          scrollbar-width: thin; /* Firefox */
-          scrollbar-color: rgb(255, 100, 60) black; /* Scrollbar color */
+          scrollbar-width: thin !important; /* Firefox */
+          scrollbar-color: rgb(255, 100, 60) black !important; /* Scrollbar color */
           overflow-y: auto; /* Allow scrolling */
-          max-height: 80vh; /* Limit the height */
+          max-height: 80vh; /* Limit the height to trigger scrollbar if content overflows */
       }
       
       /* Webkit-based browsers (Chrome, Edge, Safari) */
       #directory-tree::-webkit-scrollbar {
-          width: 8px;
+          width: 8px !important;
       }
       
       #directory-tree::-webkit-scrollbar-track {
-          background: black; /* Background */
+          background: black !important;
       }
       
       #directory-tree::-webkit-scrollbar-thumb {
-          background: rgb(255, 100, 60); /* Retro orange-red */
+          background: rgb(255, 100, 60) !important;
           border-radius: 2px;
-          box-shadow: 0 0 5px rgba(255, 100, 60, 0.9);
+          box-shadow: 0 0 5px rgba(255, 100, 60, 0.9) !important;
       }
       
       #directory-tree::-webkit-scrollbar-thumb:hover {
-          background: rgb(255, 80, 50);
+          background: rgb(255, 80, 50) !important;
       }
       
       /* Body Setup */
@@ -188,8 +188,8 @@
         .then(data => {
           console.log('Directory data:', data); // Debugging line
           const treeContainer = document.getElementById("directory-tree");
+          treeContainer.innerHTML = '';  // Clear "Loading..." text
           treeContainer.classList.remove("loading"); // Remove the loading class
-          treeContainer.innerHTML = '';  // Clear the "Loading..." text
           buildTree(data, treeContainer);
         })
         .catch(error => {
