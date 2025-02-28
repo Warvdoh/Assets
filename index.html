@@ -162,27 +162,29 @@
 
       // Recursive function to build the directory tree
       function buildTree(files, parentElement) {
-        const ul = document.createElement("ul");
+          const ul = document.createElement("ul");
       
-        files.forEach(item => {
-          const li = document.createElement("li");
+          files.forEach(item => {
+              const li = document.createElement("li");
       
-          if (item.type === "file") {
-            // Modify the link to use the GitHub Pages path
-            li.innerHTML = `<a href="https://warvdoh.github.io/Assets/${item.path}" target="_blank">${item.name}</a>`;
-          } else if (item.type === "dir") {
-            li.innerHTML = `<strong>${item.name}</strong>`;
-            fetch(item.url)  // Fetch the contents of the directory recursively
-              .then(response => response.json())
-              .then(data => buildTree(data, li))
-              .catch(error => console.error("Error loading directory:", error));
-          }
+              if (item.type === "file") {
+                  // Change the link URL to use the GitHub Pages link instead of raw.githubusercontent.com
+                  const fileUrl = `https://warvdoh.github.io/Assets/${item.path}`;
+                  li.innerHTML = `<a href="${fileUrl}" target="_blank">${item.name}</a>`;
+              } else if (item.type === "dir") {
+                  li.innerHTML = `<strong>${item.name}</strong>`;
+                  fetch(item.url)  // Fetch the contents of the directory recursively
+                      .then(response => response.json())
+                      .then(data => buildTree(data, li))
+                      .catch(error => console.error("Error loading directory:", error));
+              }
       
-          ul.appendChild(li);
-        });
+              ul.appendChild(li);
+          });
       
-        parentElement.appendChild(ul);
+          parentElement.appendChild(ul);
       }
+
       // Fetch repository content and create tree view
       fetch(apiUrl)
         .then(response => response.json())
