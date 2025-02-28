@@ -6,7 +6,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Warvdoh’s Assets Repository | Assets</title>
     <meta name="description" content="Resources like media, snippets, graphics etc." />
-    <link rel="stylesheet" href="/assets/css/style.css">
+    
+    <!-- Link to the custom CSS -->
+    <link rel="stylesheet" href="/assets/css/style.css">  <!-- Adjust path if needed -->
   </head>
   <body>
     <div class="container-lg px-3 my-5 markdown-body">
@@ -27,50 +29,50 @@
       </ul>
 
       <div class="footer border-top border-gray-light mt-5 pt-3 text-right text-gray">
-      placeholder
+        placeholder
       </div>
     </div>
 
-<script>
-  const apiUrl = "https://api.github.com/repos/Warvdoh/Assets/contents/";
+    <script>
+      const apiUrl = "https://api.github.com/repos/Warvdoh/Assets/contents/";
 
-  // Recursive function to build the directory tree
-  function buildTree(files, parentElement) {
-    const ul = document.createElement("ul");
+      // Recursive function to build the directory tree
+      function buildTree(files, parentElement) {
+        const ul = document.createElement("ul");
 
-    files.forEach(item => {
-      const li = document.createElement("li");
+        files.forEach(item => {
+          const li = document.createElement("li");
 
-      if (item.type === "file") {
-        li.innerHTML = `<a href="${item.download_url}" target="_blank">${item.name}</a>`;
-      } else if (item.type === "dir") {
-        li.innerHTML = `<strong>${item.name}</strong>`;
-        fetch(item.url)  // Fetch the contents of the directory recursively
-          .then(response => response.json())
-          .then(data => buildTree(data, li))
-          .catch(error => console.error("Error loading directory:", error));
+          if (item.type === "file") {
+            li.innerHTML = `<a href="${item.download_url}" target="_blank">${item.name}</a>`;
+          } else if (item.type === "dir") {
+            li.innerHTML = `<strong>${item.name}</strong>`;
+            fetch(item.url)  // Fetch the contents of the directory recursively
+              .then(response => response.json())
+              .then(data => buildTree(data, li))
+              .catch(error => console.error("Error loading directory:", error));
+          }
+
+          ul.appendChild(li);
+        });
+
+        parentElement.appendChild(ul);
       }
 
-      ul.appendChild(li);
-    });
-
-    parentElement.appendChild(ul);
-  }
-
-  // Fetch repository content and create tree view
-  fetch(apiUrl)
-    .then(response => response.json())
-    .then(data => {
-      console.log('Directory data:', data); // Debugging line
-      const treeContainer = document.getElementById("directory-tree");
-      buildTree(data, treeContainer);
-    })
-    .catch(error => {
-      console.error('Error fetching files:', error); // Debugging line
-      const treeContainer = document.getElementById("directory-tree");
-      treeContainer.innerHTML = "Failed to load directory tree.";
-    });
-</script>
+      // Fetch repository content and create tree view
+      fetch(apiUrl)
+        .then(response => response.json())
+        .then(data => {
+          console.log('Directory data:', data); // Debugging line
+          const treeContainer = document.getElementById("directory-tree");
+          buildTree(data, treeContainer);
+        })
+        .catch(error => {
+          console.error('Error fetching files:', error); // Debugging line
+          const treeContainer = document.getElementById("directory-tree");
+          treeContainer.innerHTML = "Failed to load directory tree.";
+        });
+    </script>
 
   </body>
 </html>
